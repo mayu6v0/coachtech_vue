@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <button id="openBtn" class="openBtn" v-on:click="openModal">開く</button>
+    <div id="modal" class="modal" v-bind:style="display">
+      <!-- modalにv-on:click.self="closeModal"をいれると、どこをクリックしても閉じなくなった
+          modalの子要素modal__contentが全体を覆っているので、.selfをつけるとmodalそのものをクリックできない？-->
+      <div class="modal__content"  v-on:click.self="closeModal">
+        <div id="modal__content-inner" class="modal__content-inner">
+          <p class="modal__txt">モーダルウィンドウ</p>
+          <button id="closeBtn" class="closeBtn" v-on:click="closeModal">閉じる</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+
+  // #modal__content-inner, #modal__txtクリックでは消えない
+
+    const vm =new Vue({
+      el: '#app',
+      data(){
+        return {
+          display: null,  //noneだと反応しなかった
+        }
+      },
+      methods: {
+        openModal(){
+          this.display = { 'display' : 'block'};
+        },
+        closeModal(){
+            this.display = { 'display': 'none' };
+        }
+      }
+    })
+  </script>
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0%;
+      left: 0%;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+    }
+
+    .modal__content {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+      align-items: center;
+    }
+
+    .modal__content-inner {
+      background-color: white;
+      width: 500px;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .modal__txt {
+      font-weight: bold;
+    }
+  </style>
+</body>
+</html>
