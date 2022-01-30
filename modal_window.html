@@ -11,8 +11,6 @@
   <div id="app">
     <button id="openBtn" class="openBtn" v-on:click="openModal">開く</button>
     <div id="modal" class="modal" v-bind:style="display">
-      <!-- modalにv-on:click.self="closeModal"をいれると、どこをクリックしても閉じなくなった
-          modalの子要素modal__contentが全体を覆っているので、.selfをつけるとmodalそのものをクリックできない？-->
       <div class="modal__content"  v-on:click.self="closeModal">
         <div id="modal__content-inner" class="modal__content-inner">
           <p class="modal__txt">モーダルウィンドウ</p>
@@ -22,21 +20,18 @@
     </div>
   </div>
   <script>
-
-  // #modal__content-inner, #modal__txtクリックでは消えない
-
     const vm =new Vue({
       el: '#app',
       data(){
         return {
-          display: null,  //noneだと反応しなかった
+          display: null,
         }
       },
       methods: {
-        openModal(){
+        openModal() {
           this.display = { 'display' : 'block'};
         },
-        closeModal(){
+        closeModal() {
             this.display = { 'display': 'none' };
         }
       }
